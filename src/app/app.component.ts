@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'game';
   score=0;
+  userData = {
+    uid:'',
+    score:0
+  };
 }

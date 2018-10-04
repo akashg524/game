@@ -4,9 +4,9 @@ import { AppComponent } from '../app.component';
 import { StartGameServiceService } from '../start-game-service.service';
 import { switchMap } from 'rxjs/operators';
 import { interval } from 'rxjs';
-import {HttpClient } from '@angular/common/http';
 import { v4 as uuid } from 'uuid';
 import {Router} from '@angular/router'
+import { PostDataService } from '../post-data.service';
 @Component({
   providers: [LandingComponentComponent],
   selector: 'app-game-tiles',
@@ -14,11 +14,9 @@ import {Router} from '@angular/router'
   styleUrls: ['./game-tiles.component.css']
 })
 export class GameTilesComponent implements OnInit {
-  userData = {
-    uid:'',
-    score:0
-  };
   correctAns: number = 0;
+  correctOffset:number=5;
+  wrongOffset:number=-3;
   temp: any;
   isDisabled: boolean = true;
   lastNum: number = 0;
@@ -27,7 +25,7 @@ export class GameTilesComponent implements OnInit {
   @ViewChild("box_2") box_2: ElementRef;
   @ViewChild("box_3") box_3: ElementRef;
   @ViewChild("box_4") box_4: ElementRef;
-  constructor(private Score: AppComponent, private st: StartGameServiceService, private http1:HttpClient,private router:Router) { }
+  constructor(private logData: AppComponent, private st: StartGameServiceService,private router:Router,private log:PostDataService) { }
   changeColor() {
     let color = Math.floor(Math.random() * 4) + 1;
     while (color === this.lastNum) {
@@ -69,38 +67,39 @@ export class GameTilesComponent implements OnInit {
     this.StartGame = !this.StartGame;
   }
   onStart() {
-    this.Score.score = 0;
+    this.logData.score = 0;
     this.temp = this.st.Start();
     this.temp.subscribe(() => this.changeColor());
   }
   onFinish() {
-    this.userData.score=this.Score.score;
-    this.userData.uid=uuid();
+    this.logData.userData.score=this.logData.score;
+    this.logData.userData.uid=uuid();
     this.isDisabled = true;
-    console.log("your final Score is " + this.Score.score);
-    this.http1.post('http://localhost:3000/gamedata',this.userData)
-    .subscribe(
-      data=>{console.log("POST request is successful",data);},
-      error=>{console.log("Error",error);}
-    );
-    this.router.navigate(['scoreboard']);
+    console.log("your final Score is " + this.logData.score);
+    this.log.postData(this.logData.userData);
+    setTimeout(()=>{this.router.navigate(['scoreboard'])},4000);
   }
   trackScore($event: any) {
-    if ($event.target.classList.contains('red')) {
+    if ($event.target.classList.contains('red')) 
+    {
       this.correctAns = this.correctAns + 1;
-      this.Score.score = this.Score.score + 5;
-      if (this.correctAns === 3  ) {
+      this.logData.score = this.logData.score + this.correctOffset;
+      if (this.correctAns === 3  ) 
+      {
+        this.correctOffset=7;
+        this.wrongOffset=4;
         this.temp.pipe(switchMap(() => interval(1000)));
         this.temp.subscribe(() => this.changeColor());
         console.log("switchMap Triggered");
       }
       this.isDisabled = true;
-      console.log("your score is " + this.Score.score + " right now");
+      console.log("your score is " + this.logData.score + " right now");
     }
-    else {
-      this.Score.score = this.Score.score - 3;
+    else 
+      {
+      this.logData.score = this.logData.score - this.wrongOffset;
       this.isDisabled = true;
-      console.log("your score is " + this.Score.score + " right now");
+      console.log("your score is " + this.logData.score + " right now");
     }
   }
   ngOnInit() {

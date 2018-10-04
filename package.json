@@ -7,10 +7,14 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --prod"
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "~0.8.0",
+    "@angular/cli": "~6.2.3",
+    "@angular/compiler-cli": "^6.1.0",
     "@angular/animations": "^6.1.0",
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
@@ -27,6 +31,7 @@
     "ngx-countdown": "^3.0.1",
     "ngx-countdown-timer": "^0.1.9",
     "rxjs": "^6.2.2",
+    "typescript": "~2.9.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -49,5 +54,9 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~2.9.2"
+  },
+  "engines": {
+    "node":"10.11.0",
+    "npm":"6.4.1"
   }
 }
