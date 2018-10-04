@@ -1,0 +1,6 @@
+<div class="container w-100">
+  <div class="row" *ngIf="isStarted">
+    <button class="btn btn-success col-md-8 offset-md-2 w-100 my-5" (click)="hide()" [routerLink]="GameComponent" id="playbutton">Play game</button>
+    <button class="btn btn-primary col-md-8 offset-md-2 my-5" (click)="hide()" [routerLink]="ScoreComponent">Score Board</button>
+  </div>
+</div>
