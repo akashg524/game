@@ -6,7 +6,7 @@ import { LandingComponentComponent } from './landing-component/landing-component
 import { AppRoutingModule } from './app-routing.module';
 import { CountdownModule } from 'ngx-countdown';
 import {HttpClientModule} from '@angular/common/http';
-import { ScoreComponentComponent } from './score-component/score-component.component'
+import { ScoreComponentComponent } from './score-component/score-component.component';
 @NgModule({
   declarations: [
     AppComponent,

@@ -7,17 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponentComponent implements OnInit {
 
-  isStarted:boolean;
-  GameComponent:string="game";
-  ScoreComponent:string="scoreboard";
+  isStarted: boolean;
+  GameComponent = 'game';
+  ScoreComponent = 'scoreboard';
   constructor() { }
-  hide()
-  {
-    this.isStarted=!this.isStarted;
+  hide() {
+    this.isStarted = !this.isStarted;
     console.log(this.isStarted);
   }
   ngOnInit() {
-    this.isStarted=true;
+    this.isStarted = true;
   }
 
 }

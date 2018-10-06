@@ -5,12 +5,12 @@ import { LandingComponentComponent } from './landing-component/landing-component
 import { ScoreComponentComponent } from './score-component/score-component.component';
 // import { HomeComponentComponent } from './home-component/home-component.component';
 // import { GetApiComponent} from './get-api/get-api.component';
-const routes: Routes = 
-[
-    {path:"game",component:GameTilesComponent},
-    {path:"",component:LandingComponentComponent},
-    { path: "scoreboard", component: ScoreComponentComponent }
-];
+const routes: Routes =
+  [
+    { path: 'game', component: GameTilesComponent },
+    { path: '', component: LandingComponentComponent },
+    { path: 'scoreboard', component: ScoreComponentComponent }
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
